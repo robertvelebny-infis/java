@@ -1,0 +1,207 @@
+========== KONFIGURACE R1 (Router) ==========
+
+enable
+configure terminal
+
+! Nastavení jména zařízení a základního zabezpečení
+hostname R1
+no ip domain-lookup
+enable secret Ciscoenpa55
+service password-encryption
+banner motd #Unauthorized access is prohibited.#
+
+! Uživatelský účet pro SSH
+username Admin1 privilege 15 secret Admin1pa55
+
+! Minimální délka hesel
+security passwords min-length 10
+
+! Nastavení konzole
+line console 0
+password Ciscoconpa55
+login
+exec-timeout 5 0
+logging synchronous	------>>>>>  overall užitečný příkaz, ALE nepřidává body do testu !
+
+! Nastavení VTY (SSH přístup)
+line vty 0 4
+password Ciscoconpa55
+login
+transport input ssh
+exec-timeout 5 0
+login local
+
+! Doména pro SSH
+ip domain-name CCNA-lab.com
+crypto key generate rsa
+1024
+
+! Blokování neúspěšných pokusů o přihlášení
+login block-for 180 attempts 4 within 120
+
+! Konfigurace IPv4 + IPv6 adresace rozhraní
+interface g0/0
+description Staff LAN
+ip address 192.168.0.1 255.255.255.128
+ipv6 address 2001:db8:acad::1/64
+ipv6 address fe80::1 link-local
+no shutdown
+
+interface g0/1
+description Sales LAN
+ip address 192.168.0.129 255.255.255.192
+ipv6 address 2001:db8:acad:1::1/64
+ipv6 address fe80::1 link-local
+no shutdown
+
+interface g0/2
+description IT LAN
+ip address 192.168.0.193 255.255.255.224
+ipv6 address 2001:db8:acad:2::1/64
+ipv6 address fe80::1 link-local
+no shutdown
+
+((	interface s0/0/1 ------>>>>> nepřidává body - Jen jako ukázka (tyto věci jsou již nastaveny)
+	ip address 172.16.1.2 255.255.255.252
+	ipv6 address 2001:db8:2::1/64
+	ipv6 address fe80::1 link-local
+	clock rate 64000
+	no shutdown		))
+
+případně  ipv6 unicast-routing
+
+========== KONFIGURACE SWITCHŮ (S1, S2, S3) S1 ==========
+
+! Nahraďte hostname a IP podle konkrétního switche
+
+hostname S1
+no ip domain-lookup
+
+interface vlan 1
+ip address 192.168.0.2 255.255.255.128
+no shutdown
+
+ip default-gateway 192.168.0.1
+
+enable secret Ciscoenpa55
+service password-encryption
+banner motd #Unauthorized access is prohibited.#
+
+line console 0
+password Ciscoconpa55
+login
+exec-timeout 5 0
+logging synchronous	------>>>>>  overall užitečný příkaz, ALE nepřidává body do testu !
+
+line vty 0 4
+password Ciscoconpa55
+login
+exec-timeout 5 0
+
+
+========== KONFIGURACE SWITCH S2 ==========
+
+enable
+configure terminal
+
+hostname S2
+no ip domain-lookup
+
+interface vlan 1
+ip address 192.168.0.130 255.255.255.192
+no shutdown
+
+ip default-gateway 192.168.0.129
+
+enable secret Ciscoenpa55
+service password-encryption
+banner motd #Unauthorized access is prohibited.#
+
+line console 0
+password Ciscoconpa55
+login
+exec-timeout 5 0
+logging synchronous	------>>>>>  overall užitečný příkaz, ALE nepřidává body do testu !
+
+line vty 0 4
+password Ciscoconpa55
+login
+exec-timeout 5 0
+
+========== KONFIGURACE SWITCH S3 ==========
+
+enable
+configure terminal
+
+hostname S3
+no ip domain-lookup
+
+interface vlan 1
+ip address 192.168.0.194 255.255.255.224
+no shutdown
+
+ip default-gateway 192.168.0.193
+
+enable secret Ciscoenpa55
+service password-encryption
+banner motd #Unauthorized access is prohibited.#
+
+line console 0
+password Ciscoconpa55
+login
+exec-timeout 5 0
+logging synchronous	------>>>>>  overall užitečný příkaz, ALE nepřidává body do testu !
+
+line vty 0 4
+password Ciscoconpa55
+login
+exec-timeout 5 0
+
+
+
+========== KONFIGURACE PC – STATIC (STAFF) ==========
+
+IP Address:       192.168.0.10
+Subnet Mask:      255.255.255.128
+Default Gateway:  192.168.0.1
+IPv6 Address:     2001:db8:acad::2/64
+Link Local Address: FE80::2
+IPv6 Gateway:     fe80::1
+
+
+========== KONFIGURACE PC – STATIC (SALES) ==========
+
+IP Address:       192.168.0.140
+Subnet Mask:      255.255.255.192
+Default Gateway:  192.168.0.129
+IPv6 Address:     2001:db8:acad:1::2/64
+Link Local Address: FE80::2
+IPv6 Gateway:     fe80::1
+
+
+========== KONFIGURACE PC – STATIC (IT) ==========
+
+IP Address:       192.168.0.200
+Subnet Mask:      255.255.255.224
+Default Gateway:  192.168.0.193
+IPv6 Address:     2001:db8:acad:2::2/64
+Link Local Address: FE80::2
+IPv6 Gateway:     fe80::1
+
+
+========== SSH PŘÍSTUP NA R1 ==========
+
+Z libovolného PC:
+ssh -l Admin1 192.168.0.1
+heslo: Admin1pa55
+
+========== TESTY KONEKTIVITY ==========
+
+Z libovolného PC:
+ping 192.168.0.129
+ping 2001:db8:acad:1::2
+Z prohlížeče:
+http://www.cisco.srv
+http://www.cisco6.srv
+
+---------------------------------------------------< TXT by Ondřej Kokeš >-------------------------------------------------------------

@@ -1,0 +1,11 @@
+Track{name='Skills in Pills', yearOfRelease=2015, length=807, rating=8.56}
+Track{name='Freak On a Leash', yearOfRelease=1998, length=612, rating=9.89}
+Track{name='AUSLANDER', yearOfRelease=2019, length=915, rating=8.54}
+Track{name='Cyanide', yearOfRelease=2010, length=144, rating=9.93}
+Track{name='Beginning of the End', yearOfRelease=2003, length=215, rating=9.31}
+Track{name='Free', yearOfRelease=2003, length=455, rating=9.25}
+Track{name='Hail to the King', yearOfRelease=2013, length=723, rating=9.34}
+Track{name='Is There Anybody out There?', yearOfRelease=2016, length=527, rating=9.48}
+Track{name='Wake Up', yearOfRelease=2018, length=777, rating=9.79}
+Track{name='Boomerang', yearOfRelease=2017, length=550, rating=9.73}
+Track{name='The War We Made', yearOfRelease=2020, length=822, rating=9.05}
