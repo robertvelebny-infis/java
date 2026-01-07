@@ -9,7 +9,7 @@ public class Comparing {
         songs.add(new Track("Slavici z madridu", 1967, 9.9, 187));
         songs.add(new Track("Jozin z Bazin", 1978, 7.0, 167));
         songs.add(new Track("Smula", 2008, 10.0, 240));
-        System.out.println(songs);
+        //System.out.println(songs);
 
         final Comparator<Track> BY_DURATION = new Comparator<Track>() {
             @Override
@@ -19,6 +19,7 @@ public class Comparing {
         };
 
         songs.sort(BY_DURATION);
+        System.out.println(songs);
     }
 }
 
