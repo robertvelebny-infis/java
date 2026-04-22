@@ -25,6 +25,7 @@ public class readWriteTest1401 {
                 previousInput = input; //pomocna promenna pro kontrolu posledniho znaku
                 System.out.print((char) input);
             }
+            System.out.println("input = " + input + " " + (char)previousInput);
             if ((char)previousInput != '\n'){ //predpokladam, ze posledni charakter nebude break line, ale pokud ano, tak by tohle melo zajistit, aby byl zpravnej pocet znaku
                 amountOf[2]++; //pripocti 1 k poctu radku pokud posledni znak neni breakline
             }
